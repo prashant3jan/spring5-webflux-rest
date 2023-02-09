@@ -27,7 +27,7 @@ public class Bootstrap implements CommandLineRunner {
             categoryRepository.save(Category.builder().description("Nuts").build()).block();
             categoryRepository.save(Category.builder().description("Breads").build()).block();
             categoryRepository.save(Category.builder().description("Meats").build()).block();
-            categoryRepository.save(Category.builder().description("Egg").build()).block();
+            categoryRepository.save(Category.builder().description("Eggs").build()).block();
 
             System.out.println("Loaded Categories: " + categoryRepository.count().block());
 
