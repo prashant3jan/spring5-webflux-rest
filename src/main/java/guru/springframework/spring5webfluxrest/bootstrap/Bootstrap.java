@@ -31,11 +31,11 @@ public class Bootstrap implements CommandLineRunner {
 
             System.out.println("Loaded Categories: " + categoryRepository.count().block());
 
-            vendorRepository.save(Vendor.builder().firstName("Joe").lastname("Buck").build()).block();
-            vendorRepository.save(Vendor.builder().firstName("Micheal").lastname("Weston").build()).block();
-            vendorRepository.save(Vendor.builder().firstName("Jessie").lastname("Waters").build()).block();
-            vendorRepository.save(Vendor.builder().firstName("Bill").lastname("Nershi").build()).block();
-            vendorRepository.save(Vendor.builder().firstName("Jimmy").lastname("Buffett").build()).block();
+            vendorRepository.save(Vendor.builder().firstName("Joe").lastName("Buck").build()).block();
+            vendorRepository.save(Vendor.builder().firstName("Micheal").lastName("Weston").build()).block();
+            vendorRepository.save(Vendor.builder().firstName("Jessie").lastName("Waters").build()).block();
+            vendorRepository.save(Vendor.builder().firstName("Bill").lastName("Nershi").build()).block();
+            vendorRepository.save(Vendor.builder().firstName("Jimmy").lastName("Buffett").build()).block();
 
             System.out.println("Loaded Vendors: "+ vendorRepository.count().block());
 
