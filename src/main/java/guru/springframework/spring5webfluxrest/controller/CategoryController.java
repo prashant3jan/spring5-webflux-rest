@@ -1,4 +1,4 @@
-package guru.springframework.spring5webfluxrest;
+package guru.springframework.spring5webfluxrest.controller;
 
 import guru.springframework.spring5webfluxrest.domain.Category;
 import guru.springframework.spring5webfluxrest.services.CategoryService;
