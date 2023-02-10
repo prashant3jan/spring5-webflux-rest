@@ -16,5 +16,5 @@ public class Vendor {
     @Id
     private String id;
     private String firstName;
-    private String lastname;
+    private String lastName;
 }
