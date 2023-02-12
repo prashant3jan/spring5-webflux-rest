@@ -1,19 +1,15 @@
 package guru.springframework.spring5webfluxrest.controller;
 
 import guru.springframework.spring5webfluxrest.domain.Category;
-import guru.springframework.spring5webfluxrest.repository.CategoryRepository;
 import guru.springframework.spring5webfluxrest.services.CategoryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
+import org.reactivestreams.Publisher;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Calendar;
-
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
 public class CategoryControllerTest {
@@ -39,12 +35,23 @@ public class CategoryControllerTest {
                 .expectBodyList(Category.class)
                 .hasSize(2);
     }
-
     @Test
     public void getCategoryById() {
         BDDMockito.given(categoryService.getCategoryById("someid")).willReturn(Mono.just(Category.builder().description("Cat").build()));
         webTestClient.get().uri("/api/v1/categories/someid")
                 .exchange()
                 .expectBody(Category.class);
+    }
+    @Test
+    public void createCategory(){
+        BDDMockito.given(categoryService.createCategory(any(Publisher.class)))
+                .willReturn(Mono.empty());
+        Mono<Category> catToSaveMono = Mono.just(Category.builder().description("Some cat").build());
+        webTestClient.post()
+                .uri("/api/v1/categories")
+                .body(catToSaveMono,Category.class)
+                .exchange()
+                .expectStatus()
+                .isCreated();
     }
 }
