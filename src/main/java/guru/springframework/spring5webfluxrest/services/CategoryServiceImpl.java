@@ -29,4 +29,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Mono<Void> createCategory(Publisher<Category> categoryStream) {
         return categoryRepository.saveAll(categoryStream).then();
     }
+    @Override
+    public Mono<Category> updateCategory(String id, Category category) {
+        category.setId(id);
+        return categoryRepository.save(category);
+    }
 }

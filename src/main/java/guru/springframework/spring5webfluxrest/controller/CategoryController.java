@@ -31,4 +31,8 @@ public class CategoryController {
     public Mono<Void> createCategory(@RequestBody Publisher<Category> categoryStream){
         return categoryService.createCategory(categoryStream);
     }
+    @PutMapping("/api/v1/categories/{id}")
+    public Mono<Category> updateCategory(@PathVariable String id, @RequestBody Category category){
+        return categoryService.updateCategory(id,category);
+    }
 }
