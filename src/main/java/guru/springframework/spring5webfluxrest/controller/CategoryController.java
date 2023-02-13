@@ -28,7 +28,7 @@ public class CategoryController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/v1/categories")
-    public Mono<Void> category(@RequestBody Publisher<Category> categoryStream){
+    public Mono<Void> createCategory(@RequestBody Publisher<Category> categoryStream){
         return categoryService.createCategory(categoryStream);
     }
 }
