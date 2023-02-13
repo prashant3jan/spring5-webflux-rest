@@ -2,9 +2,9 @@ package guru.springframework.spring5webfluxrest.controller;
 
 import guru.springframework.spring5webfluxrest.domain.Vendor;
 import guru.springframework.spring5webfluxrest.services.VendorService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.reactivestreams.Publisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -24,5 +24,10 @@ public class VendorController {
     @GetMapping("/api/v1/vendors/{id}")
     public Mono<Vendor> getVendorById(@PathVariable String id){
         return vendorService.getVendorById(id);
+    }
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/api/v1/vendors")
+    public Mono<Void> createVendor(@RequestBody Publisher<Vendor> vendorStream){
+        return vendorService.createVendor(vendorStream);
     }
 }

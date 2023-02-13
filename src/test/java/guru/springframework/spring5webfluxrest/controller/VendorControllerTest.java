@@ -5,10 +5,12 @@ import guru.springframework.spring5webfluxrest.services.VendorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.BDDMockito;
+import org.reactivestreams.Publisher;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static org.mockito.ArgumentMatchers.any;
 public class VendorControllerTest {
     private VendorService vendorService;
     private VendorController vendorController;
@@ -37,4 +39,17 @@ public class VendorControllerTest {
         webTestClient.get().uri("/api/v1/vendors/newid")
                 .exchange().expectBody(Vendor.class);
     }
+
+    @Test
+    public void createVendorTest(){
+        BDDMockito.given(vendorService.createVendor(any(Publisher.class))).willReturn(Mono.empty());
+        Mono<Vendor> vendorToSaveMono = Mono.just(Vendor.builder().firstName("Jeremy").lastName("Brett").build());
+        webTestClient.post()
+                .uri("/api/v1/vendors")
+                .body(vendorToSaveMono,Vendor.class)
+                .exchange()
+                .expectStatus()
+                .isCreated();
+    }
+
 }
