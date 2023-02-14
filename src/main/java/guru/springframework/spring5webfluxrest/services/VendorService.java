@@ -9,4 +9,5 @@ public interface VendorService {
     public Flux<Vendor> getAllVendors();
     public Mono<Vendor> getVendorById(String id);
     public Mono<Void> createVendor(Publisher<Vendor> vendorStream);
+    public Mono<Vendor> updateVendor(String id, Vendor vendor);
 }

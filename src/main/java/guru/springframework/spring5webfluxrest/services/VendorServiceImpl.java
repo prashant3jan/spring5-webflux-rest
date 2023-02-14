@@ -21,9 +21,13 @@ public class VendorServiceImpl implements VendorService {
     public Mono<Vendor> getVendorById(String id) {
         return vendorRepository.findById(id);
     }
-
     @Override
     public Mono<Void> createVendor(Publisher<Vendor> vendorStream) {
         return vendorRepository.saveAll(vendorStream).then();
+    }
+    @Override
+    public Mono<Vendor> updateVendor(String id, Vendor vendor) {
+        vendor.setId(id);
+        return vendorRepository.save(vendor);
     }
 }
