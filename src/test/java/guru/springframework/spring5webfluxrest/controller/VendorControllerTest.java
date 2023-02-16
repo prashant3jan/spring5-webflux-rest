@@ -1,6 +1,7 @@
 package guru.springframework.spring5webfluxrest.controller;
 
 import guru.springframework.spring5webfluxrest.domain.Vendor;
+import guru.springframework.spring5webfluxrest.repository.VendorRepository;
 import guru.springframework.spring5webfluxrest.services.VendorService;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import reactor.core.publisher.Mono;
 import static org.mockito.ArgumentMatchers.any;
 public class VendorControllerTest {
     private VendorService vendorService;
+
     private VendorController vendorController;
     private WebTestClient webTestClient;
 
@@ -64,5 +66,18 @@ public class VendorControllerTest {
                 .expectStatus()
                 .isOk();
     }
-
+    @Test
+    public void testPatchVendor(){
+        BDDMockito.given(vendorService.patchVendor(any(String.class),any(Vendor.class)))
+                .willReturn(Mono.just(Vendor.builder().firstName("firstName").lastName("lastName").build()));
+        Mono<Vendor> vendorMonoToUpdate = Mono.just(Vendor.builder().firstName("firstName").lastName("lastName").build());
+        webTestClient.patch()
+                .uri("/api/v1/vendors/someid")
+                .body(vendorMonoToUpdate,Vendor.class)
+                .exchange()
+                .expectStatus()
+                .isOk();
+    }
 }
+
+

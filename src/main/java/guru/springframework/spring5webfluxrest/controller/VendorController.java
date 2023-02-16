@@ -30,9 +30,12 @@ public class VendorController {
     public Mono<Void> createVendor(@RequestBody Publisher<Vendor> vendorStream){
         return vendorService.createVendor(vendorStream);
     }
-
     @PutMapping("/api/v1/vendors/{id}")
     public  Mono<Vendor> updateVendor(@PathVariable String id, @RequestBody Vendor vendor){
         return vendorService.updateVendor(id,vendor);
+    }
+    @PatchMapping("/api/v1/vendors/{id}")
+    public Mono<Vendor> patchVendor(@PathVariable String id, @RequestBody Vendor vendor){
+        return vendorService.patchVendor(id,vendor);
     }
 }

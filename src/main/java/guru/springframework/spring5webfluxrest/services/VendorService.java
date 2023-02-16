@@ -10,4 +10,5 @@ public interface VendorService {
     public Mono<Vendor> getVendorById(String id);
     public Mono<Void> createVendor(Publisher<Vendor> vendorStream);
     public Mono<Vendor> updateVendor(String id, Vendor vendor);
+    public Mono<Vendor> patchVendor(String id, Vendor vendor);
 }
