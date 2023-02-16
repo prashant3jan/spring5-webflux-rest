@@ -35,4 +35,9 @@ public class CategoryController {
     public Mono<Category> updateCategory(@PathVariable String id, @RequestBody Category category){
         return categoryService.updateCategory(id,category);
     }
+
+    @PatchMapping("/api/v1/categories/{id}")
+    public Mono<Category> patchCategory(@PathVariable String id, @RequestBody Category category){
+        return categoryService.patchCategory(id,category);
+    }
 }

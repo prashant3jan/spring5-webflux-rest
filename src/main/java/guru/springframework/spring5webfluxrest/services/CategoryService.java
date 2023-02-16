@@ -7,7 +7,12 @@ import reactor.core.publisher.Mono;
 
 public interface CategoryService {
     public Mono<Category> getCategoryById(String id);
+
     public Flux<Category> getAllCategories();
+
     public Mono<Void> createCategory(Publisher<Category> categoryStream);
+
     public Mono<Category> updateCategory(String id, Category category);
+
+    public Mono<Category> patchCategory(String id, Category category);
 }
