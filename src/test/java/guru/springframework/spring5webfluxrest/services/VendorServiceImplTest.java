@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
 
 public class VendorServiceImplTest {
     @Mock
@@ -51,7 +52,7 @@ public class VendorServiceImplTest {
     @Test
     public void createVendor(){
         BDDMockito.given(vendorRepository.saveAll(any(Publisher.class)))
-                .willReturn(Flux.empty());
+                .willReturn(Flux.just(Vendor.builder().firstName("first").lastName("last").build()));
         Mono<Vendor> vendorMono= Mono.just(Vendor.builder().firstName("first").lastName("last").build());
         vendorRepository.saveAll(vendorMono);
         BDDMockito.verify(vendorRepository).saveAll(vendorMono);
@@ -60,8 +61,8 @@ public class VendorServiceImplTest {
     @Test
     public void updateVendor(){
         BDDMockito.given(vendorRepository.save(any(Vendor.class)))
-                .willReturn(Mono.just(Vendor.builder().firstName("Jeremy").lastName("Brett").build()));
-        Vendor vendor = Vendor.builder().firstName("firstName").lastName("lastName").build();
+                .willReturn(Mono.just(Vendor.builder().firstName("firstName").lastName("lastName").build()));
+        Vendor vendor = Vendor.builder().firstName("firstName1").lastName("lastName1").build();
         Mono<Vendor> monoVendor = vendorRepository.save(vendor);
         BDDMockito.verify(vendorRepository).save(any());
 
@@ -70,10 +71,10 @@ public class VendorServiceImplTest {
     @Test
     public void patchVendor() {
         BDDMockito.given(vendorRepository.findById(anyString()))
-                .willReturn(Mono.just(Vendor.builder().build()));
+                .willReturn(Mono.just(Vendor.builder().firstName("first").lastName("last").build()));
         BDDMockito.given(vendorRepository.save(any(Vendor.class)))
-                .willReturn(Mono.just(Vendor.builder().firstName("Jeremy").lastName("Brett").build()));
-        Vendor vendor = Vendor.builder().firstName("firstName").lastName("lastName").build();
+                .willReturn(Mono.just(Vendor.builder().firstName("first").lastName("first").build()));
+        Vendor vendor = Vendor.builder().firstName("first1").lastName("first1").build();
         Mono<Vendor> monoVendor = vendorRepository.save(vendor);
         vendorRepository.findById(vendor.getId());
         BDDMockito.verify(vendorRepository).save(any());
